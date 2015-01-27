@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask.ext.assets import Environment
 from hamlish_jinja import HamlishTagExtension
 import numpy as np
 
 app = Flask(__name__)
-app.debug = True
 
 # Haml Extension
 app.jinja_env.add_extension(HamlishTagExtension)
