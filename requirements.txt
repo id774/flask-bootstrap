@@ -1,3 +1,1 @@
-flask
-Flask-Assets
-Hamilsh-Jinja
+Flask
