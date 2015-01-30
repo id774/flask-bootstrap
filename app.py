@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import time
 from flask import Flask, render_template, request, redirect, url_for
 import numpy as np
 import datetime
@@ -106,7 +105,7 @@ def post():
 def run_local(num):
     if num == 1:
         result = turn_rare()
-        print(result)
+        print(result[0])
     else:
         count_f = num / 10
         for v in range(0, int(count_f)):
