@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import sys
+import time
 from flask import Flask, render_template, request, redirect, url_for
 import numpy as np
 import datetime
@@ -31,8 +33,8 @@ vo = VO()
 
 def pickup_premium():
     """UR の景品を確定して排出する"""
-    ur = ["景品1", "景品2", "景品3", "景品4", "景品5", "景品6", "景品7",
-          "景品8", "景品9", "景品10", "景品11", "景品12"]
+    ur = ["二穂", "雪枝", "華賀利", "真乃", "楓", "依咲里", "天音",
+          "陽奈", "いつみ", "紗々", "あから", "小織"]
     return np.random.choice(ur)
 
 def pickup_rare(weight):
@@ -73,7 +75,7 @@ def index():
 
 @app.route('/post', methods=['POST', 'GET'])
 def post():
-    time = datetime.datetime.today().strftime("%H:%M:%S")
+    t = datetime.datetime.today().strftime("%H:%M:%S")
     message = ""
     if request.method == 'POST':
         result = []
@@ -95,11 +97,26 @@ def post():
             message = "リセットしました"
         return render_template('index.html',
                                result=result, title=title,
-                               time=time, vo=vo,
+                               time=t, vo=vo,
                                message=message)
     else:
         return redirect(url_for('index'))
 
+
+def run_local(num):
+    if num == 1:
+        result = turn_rare()
+        print(result)
+    else:
+        count_f = num / 10
+        for v in range(0, int(count_f)):
+            print(v + 1, "回め")
+            result = turn_10rare()
+            print(result)
+
 if __name__ == '__main__':
-    app.debug = True
-    app.run(host='0.0.0.0')
+    if len(sys.argv) == 2:
+        run_local(int(sys.argv[1]))
+    else:
+        app.debug = True
+        app.run(host='0.0.0.0')
