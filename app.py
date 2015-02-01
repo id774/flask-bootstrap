@@ -64,6 +64,16 @@ def turn_10rare():
     result.append("SR")
     return result
 
+def turn_toku10():
+    """特効 10 連レアガチャを回す"""
+    result = []
+    # 小数点第三位を切り上げて 88.65%, 11.13%, 0.24%
+    weight = [0.88648, 0.11121, 0.00231]
+    for v in range(0, 9):
+        result.append(pickup_rare(weight))
+    result.append("SR")
+    return result
+
 # Routing
 @app.route('/')
 def index():
@@ -115,7 +125,11 @@ def run_local(num):
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:
-        run_local(int(sys.argv[1]))
+        if sys.argv[1] == "toku10":
+            result = turn_toku10()
+            print(result)
+        else:
+            run_local(int(sys.argv[1]))
     else:
         app.debug = True
         app.run(host='0.0.0.0')
