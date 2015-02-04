@@ -44,6 +44,7 @@ def pickup_rare(weight):
     if picked_rarity == "UR":
         picked_rarity = "".join((picked_rarity, "(", pickup_premium(), ")"))
 
+    print(weight, picked_rarity)
     return picked_rarity
 
 def turn_rare():
@@ -112,7 +113,8 @@ def post():
         return redirect(url_for('index'))
 
 
-def run_local(num):
+def run_local(args):
+    num = int(args[1])
     if num == 1:
         result = turn_rare()
         print(result[0])
@@ -120,16 +122,15 @@ def run_local(num):
         count_f = num / 10
         for v in range(0, int(count_f)):
             print(v + 1, "回め")
-            result = turn_10rare()
+            if len(args) == 3 and args[2] == "toku":
+                result = turn_toku10()
+            else:
+                result = turn_10rare()
             print(result)
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        if sys.argv[1] == "toku10":
-            result = turn_toku10()
-            print(result)
-        else:
-            run_local(int(sys.argv[1]))
+    if len(sys.argv) >= 2:
+        run_local(sys.argv)
     else:
         app.debug = True
         app.run(host='0.0.0.0')
