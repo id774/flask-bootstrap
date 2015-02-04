@@ -44,7 +44,6 @@ def pickup_rare(weight):
     if picked_rarity == "UR":
         picked_rarity = "".join((picked_rarity, "(", pickup_premium(), ")"))
 
-    print(weight, picked_rarity)
     return picked_rarity
 
 def turn_rare():
@@ -53,6 +52,7 @@ def turn_rare():
     # 小数点第三位を切り上げて 94.85%, 5.04%, 0.12%
     weight = [0.94849, 0.0504, 0.00111]
     result.append(pickup_rare(weight))
+    print(weight, result[0])
     return result
 
 def turn_10rare():
@@ -63,6 +63,7 @@ def turn_10rare():
     for v in range(0, 9):
         result.append(pickup_rare(weight))
     result.append("SR")
+    print(weight, result)
     return result
 
 def turn_toku10():
@@ -73,6 +74,7 @@ def turn_toku10():
     for v in range(0, 9):
         result.append(pickup_rare(weight))
     result.append("SR")
+    print(weight, result)
     return result
 
 def turn_toku():
@@ -81,6 +83,7 @@ def turn_toku():
     # 小数点第三位を切り上げて 89.31%, 10.46%, 0.24%
     weight = [0.8931, 0.10459, 0.00231]
     result.append(pickup_rare(weight))
+    print(weight, result[0])
     return result
 
 # Routing
@@ -135,19 +138,17 @@ def run_local(args):
     num = int(args[1])
     if num == 1:
         if len(args) == 3 and args[2] == "toku":
-            result = turn_toku()
+            turn_toku()
         else:
-            result = turn_rare()
-        print(result[0])
+            turn_rare()
     else:
         count_f = num / 10
         for v in range(0, int(count_f)):
             print(v + 1, "回め")
             if len(args) == 3 and args[2] == "toku":
-                result = turn_toku10()
+                turn_toku10()
             else:
-                result = turn_10rare()
-            print(result)
+                turn_10rare()
 
 if __name__ == '__main__':
     if len(sys.argv) >= 2:
