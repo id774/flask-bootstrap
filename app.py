@@ -112,6 +112,11 @@ def post():
             vo.price = vo.price + 3000
             vo.count = vo.count + 1
             result = turn_toku10()
+        if 'toku' in request.form:
+            title = "特効レアガチャを回しました！"
+            vo.price = vo.price + 300
+            vo.count = vo.count + 1
+            result = turn_toku()
         if 'reset' in request.form:
             title = "リセットしました"
             vo.price = 0
