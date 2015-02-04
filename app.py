@@ -136,19 +136,21 @@ def post():
 
 def run_local(args):
     num = int(args[1])
-    if num == 1:
-        if len(args) == 3 and args[2] == "toku":
-            turn_toku()
-        else:
-            turn_rare()
-    else:
+    if (num % 10) == 0:
         count_f = num / 10
-        for v in range(0, int(count_f)):
-            print(v + 1, "回め")
+        for i in range(0, int(count_f)):
+            print(i + 1, "回め")
             if len(args) == 3 and args[2] == "toku":
                 turn_toku10()
             else:
                 turn_10rare()
+    else:
+        for i in range(0, num):
+            print(i + 1, "回め")
+            if len(args) == 3 and args[2] == "toku":
+                turn_toku()
+            else:
+                turn_rare()
 
 if __name__ == '__main__':
     if len(sys.argv) >= 2:
