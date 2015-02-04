@@ -75,6 +75,14 @@ def turn_toku10():
     result.append("SR")
     return result
 
+def turn_toku():
+    """特効レアガチャを回す"""
+    result = []
+    # 小数点第三位を切り上げて 89.31%, 10.46%, 0.24%
+    weight = [0.8931, 0.10459, 0.00231]
+    result.append(pickup_rare(weight))
+    return result
+
 # Routing
 @app.route('/')
 def index():
@@ -121,7 +129,10 @@ def post():
 def run_local(args):
     num = int(args[1])
     if num == 1:
-        result = turn_rare()
+        if len(args) == 3 and args[2] == "toku":
+            result = turn_toku()
+        else:
+            result = turn_rare()
         print(result[0])
     else:
         count_f = num / 10
