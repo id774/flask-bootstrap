@@ -90,15 +90,20 @@ def post():
     if request.method == 'POST':
         result = []
         if 'rare' in request.form:
-            title = "ガチャを回しました！"
+            title = "レアガチャを回しました！"
             vo.price = vo.price + 300
             vo.count = vo.count + 1
             result = turn_rare()
         if '10rare' in request.form:
-            title = "ガチャを回しました！"
+            title = "10 連レアガチャを回しました！"
             vo.price = vo.price + 3000
             vo.count = vo.count + 1
             result = turn_10rare()
+        if 'toku10' in request.form:
+            title = "特効 10 連レアガチャを回しました！"
+            vo.price = vo.price + 3000
+            vo.count = vo.count + 1
+            result = turn_toku10()
         if 'reset' in request.form:
             title = "リセットしました"
             vo.price = 0
